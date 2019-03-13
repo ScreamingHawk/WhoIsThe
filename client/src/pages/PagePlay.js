@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 	display: flex;
 	> * {
 		width: 50%;
-		margin: 0;
+		padding: 8px;
 	}
 	justify-content: space-around;
 	background-color: ${({ theme }) => theme.background};

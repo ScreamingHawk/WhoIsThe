@@ -10,7 +10,7 @@ const App = () => {
 		background: "#DCDCDC",
 		text: "#111111",
 		border: "#AAAAAA",
-		highlight: "#e5c100",
+		highlight: "#e8a90e",
 	})
 	const [name, setName] = useState()
 

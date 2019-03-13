@@ -8,12 +8,16 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
-	border: 1px solid ${({ theme }) => theme.border};
+`
+
+const FullHR = styled.hr`
+	width: 90%;
 `
 
 const ChatBox = () => {
 	return (
 		<Wrapper>
+			<FullHR />
 			<ChatSend />
 			<ChatLog />
 		</Wrapper>
