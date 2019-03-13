@@ -1,6 +1,6 @@
 const log = require('../logger')
 
-module.exports = (io, socket, store) => {
+module.exports = (io, socket, store, common) => {
 	socket.on('myname set', name => {
 		log.debug(`User set name to ${name}`)
 		const user = store.users.find(u => u.id === socket.id)
@@ -15,6 +15,7 @@ module.exports = (io, socket, store) => {
 				active: true,
 				titles: [],
 			})
+			common.systemMessage(name, 'joined the game')
 		}
 		// Update clients
 		socket.emit('myname is', name)

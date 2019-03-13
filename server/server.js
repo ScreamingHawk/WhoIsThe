@@ -10,7 +10,10 @@ const app = express()
 const server = http.createServer(app)
 const io = socketio(server)
 
-const configureChat = require('./routes/chat')
+const {
+	configureChat,
+	systemMessage,
+} = require('./routes/chat')
 const configureMyName = require('./routes/myname')
 const configureTitle = require('./routes/title')
 const configureUsers = require('./routes/users')
@@ -28,6 +31,9 @@ let connectedCount = 0
 const store = {
 	users: [],
 	titleSuggestions: [],
+}
+const common = {
+	systemMessage: (item, message) => systemMessage(io, item, message),
 }
 
 io.on('connection', socket => {
@@ -48,8 +54,8 @@ io.on('connection', socket => {
 	})
 
 	configureChat(io, socket, store)
-	configureMyName(io, socket, store)
-	configureTitle(io, socket, store)
+	configureMyName(io, socket, store, common)
+	configureTitle(io, socket, store, common)
 	configureUsers(io, socket, store)
 })
 

@@ -5,17 +5,34 @@ import socket from '../global/socket'
 
 const Wrapper = styled.ul`
 	list-style: none;
-	padding: 0;
+	padding: 4px;
+	p {
+		word-wrap: break-word;
+	}
 `
 
 const ChatLog = () => {
 	const [chats, setChats] = useState([])
 
 	useEffect(() => {
-		// Listen for user list
+		// Listen for user chat
 		socket.on('chat new', chat => {
 			const newChats = chats.slice(0)
 			chat.ts = new Date(chat.ts)
+			chat.message = (
+				<p>{chat.message}</p>
+			)
+			newChats.unshift(chat)
+			setChats(newChats)
+		})
+		// Listen for system chat
+		socket.on('chat system', chat => {
+			const newChats = chats.slice(0)
+			chat.ts = new Date(chat.ts)
+			chat.name = 'SYSTEM'
+			chat.message = (
+				<p><i>{chat.item}</i> {chat.message}</p>
+			)
 			newChats.unshift(chat)
 			setChats(newChats)
 		})
@@ -23,6 +40,7 @@ const ChatLog = () => {
 		// Unsub
 		return () => {
 			socket.off('chat new')
+			socket.off('chat system')
 		}
 	})
 
@@ -34,8 +52,7 @@ const ChatLog = () => {
 						<strong>{chat.name}</strong>
 						{' '}
 						<small>{chat.ts.toLocaleTimeString()}</small>
-						<br />
-						<span>{chat.message}</span>
+						{chat.message}
 					</li>
 				)
 			)}
