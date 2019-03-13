@@ -14,7 +14,6 @@ const {
 	configureChat,
 	systemMessage,
 } = require('./routes/chat')
-const configureMyName = require('./routes/myname')
 const configureTitle = require('./routes/title')
 const configureUsers = require('./routes/users')
 
@@ -54,9 +53,8 @@ io.on('connection', socket => {
 	})
 
 	configureChat(io, socket, store)
-	configureMyName(io, socket, store, common)
 	configureTitle(io, socket, store, common)
-	configureUsers(io, socket, store)
+	configureUsers(io, socket, store, common)
 })
 
 // Fail over
