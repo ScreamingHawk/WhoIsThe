@@ -25,7 +25,6 @@ app.use(express.static(clientFolder))
 let connectedCount = 0
 
 const store = {
-	sockets: {},
 	users: [],
 	titleSuggestions: [],
 }
@@ -34,18 +33,16 @@ io.on('connection', socket => {
 	log.debug("A user connected")
 	connectedCount++
 	log.debug(`There are ${connectedCount} connected users`)
-	store.sockets[socket] = {}
 
 	socket.on('disconnect', () => {
 		log.debug("A user disconnected")
 		connectedCount--
 		log.debug(`There are ${connectedCount} connected users`)
-		const sock = store.sockets[socket]
-		if (sock.name){
-			// Deactivate user
-			store.users.find(u => u.name == sock.name).active = false
+		// Deactivate user
+		const user = store.users.find(u => u.id === socket.id)
+		if (user){
+			user.active = false
 		}
-		delete store.sockets[socket]
 		io.emit('users is', store.users)
 	})
 
