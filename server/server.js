@@ -11,6 +11,7 @@ const server = http.createServer(app)
 const io = socketio(server)
 
 const configureMyName = require('./routes/myname')
+const configureTitle = require('./routes/title')
 const configureUsers = require('./routes/users')
 
 const clientFolder = path.join(__dirname, '..', 'client/build')
@@ -26,6 +27,7 @@ let connectedCount = 0
 const store = {
 	sockets: {},
 	users: [],
+	titleSuggestions: [],
 }
 
 io.on('connection', socket => {
@@ -48,6 +50,7 @@ io.on('connection', socket => {
 	})
 
 	configureMyName(io, socket, store)
+	configureTitle(io, socket, store)
 	configureUsers(io, socket, store)
 })
 

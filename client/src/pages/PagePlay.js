@@ -2,12 +2,17 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 import UserList from '../components/UserList'
+import TitleSuggest from '../components/TitleSuggest'
 import socket from '../global/socket'
 
 const Wrapper = styled.div`
 	width: 100vw;
 	height: 100vh;
 	display: flex;
+	* {
+		width: 50%;
+		margin: 0;
+	}
 	justify-content: center;
 	align-items: middle;
 	background-color: ${({ theme }) => theme.background};
@@ -36,6 +41,7 @@ const PagePlay = () => {
 	return (
 		<Wrapper>
 			<UserList users={users} />
+			<TitleSuggest />
 		</Wrapper>
 	)
 }
