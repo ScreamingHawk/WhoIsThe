@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 import UserList from '../components/UserList'
+import TitleCurrent from '../components/TitleCurrent'
 import TitleSuggest from '../components/TitleSuggest'
 import ChatBox from '../components/ChatBox'
 import socket from '../global/socket'
@@ -18,7 +19,7 @@ const Wrapper = styled.div`
 	background-color: ${({ theme }) => theme.background};
 `
 
-const RightSide = styled.div`
+const Side = styled.div`
 	> * {
 		margin-bottom: 10px;
 		input {
@@ -48,11 +49,14 @@ const PagePlay = () => {
 
 	return (
 		<Wrapper>
-			<UserList users={users} />
-			<RightSide>
+			<Side>
+				<TitleCurrent />
+				<UserList users={users} />
+			</Side>
+			<Side>
 				<TitleSuggest />
 				<ChatBox />
-			</RightSide>
+			</Side>
 		</Wrapper>
 	)
 }

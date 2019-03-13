@@ -30,6 +30,7 @@ let connectedCount = 0
 const store = {
 	users: [],
 	titleSuggestions: [],
+	currentTitle: '',
 }
 const common = {
 	systemMessage: (item, message) => systemMessage(io, item, message),
