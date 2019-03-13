@@ -20,15 +20,25 @@ app.use(express.static(clientFolder))
 
 let connectedCount = 0
 
+const sockets = {}
+
 io.on('connection', socket => {
 	log.debug("A user connected")
 	connectedCount++
 	log.debug(`There are ${connectedCount} connected users`)
+	sockets[socket] = {}
 
 	socket.on('disconnect', () => {
 		log.debug("A user disconnected")
 		connectedCount--
 		log.debug(`There are ${connectedCount} connected users`)
+		sockets[socket] = undefined
+	})
+
+	socket.on('myname set', name => {
+		log.debug(`User set name to ${name}`)
+		sockets[socket] = sockets[socket].name = name
+		socket.emit('myname is', name)
 	})
 })
 

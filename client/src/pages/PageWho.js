@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import Input from '../components/base/Input'
+import socket from '../global/socket'
 
 const Wrapper = styled.form`
 	width: 100vw;
@@ -10,20 +11,19 @@ const Wrapper = styled.form`
 	justify-content: center;
 	align-items: middle;
 	background-color: ${({ theme }) => theme.background};
-`;
+`
 
-function PageWho() {
+const PageWho = () => {
 	const [name, setName] = useState('')
 
-	function handleSubmit(e) {
+	const handleSubmit = e => {
 		if (e){
-			e.preventDefault();
+			e.preventDefault()
 		}
 		if (name === ""){
 			return
 		}
-		console.log(name)
-		// TODO Send name
+		socket.emit('myname set', name)
 	}
 
 	return (

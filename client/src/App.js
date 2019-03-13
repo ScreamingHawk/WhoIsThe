@@ -1,23 +1,37 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ThemeProvider } from 'styled-components'
 
+import socket from './global/socket'
 import PageWho from './pages/PageWho'
 
-class App extends Component {
-	state = {
-		theme: {
-			background: "#DCDCDC",
-			text: "#111111",
-		},
+const App = () => {
+	const [theme] = useState({
+		background: "#DCDCDC",
+		text: "#111111",
+	})
+	const [name, setName] = useState()
+
+	useEffect(() => {
+		// Set up socket management
+		socket.on('myname is', myName => {
+			console.log(`Setting name to ${myName}`)
+			setName(myName)
+		})
+		return () => {
+			socket.off('myname is')
+		}
+	})
+
+	let page = null
+	if (!name){
+		page = <PageWho />
 	}
 
-	render() {
-		return (
-			<ThemeProvider theme={this.state.theme}>
-				<PageWho />
-			</ThemeProvider>
-		);
-	}
+	return (
+		<ThemeProvider theme={theme}>
+			{page}
+		</ThemeProvider>
+	)
 }
 
 export default App;
