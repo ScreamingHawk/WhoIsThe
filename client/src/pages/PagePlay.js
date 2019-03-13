@@ -3,19 +3,28 @@ import styled from 'styled-components'
 
 import UserList from '../components/UserList'
 import TitleSuggest from '../components/TitleSuggest'
+import ChatBox from '../components/ChatBox'
 import socket from '../global/socket'
 
 const Wrapper = styled.div`
 	width: 100vw;
 	height: 100vh;
 	display: flex;
-	* {
+	> * {
 		width: 50%;
 		margin: 0;
 	}
-	justify-content: center;
-	align-items: middle;
+	justify-content: space-around;
 	background-color: ${({ theme }) => theme.background};
+`
+
+const RightSide = styled.div`
+	> * {
+		margin-bottom: 10px;
+		input {
+			width: 100%;
+		}
+	}
 `
 
 const PagePlay = () => {
@@ -24,7 +33,6 @@ const PagePlay = () => {
 	useEffect(() => {
 		// Listen for user list
 		socket.on('users is', sockUsers => {
-			console.log(`Users are ${JSON.stringify(users)}`)
 			setUsers(sockUsers)
 		})
 		// Request user list
@@ -41,7 +49,10 @@ const PagePlay = () => {
 	return (
 		<Wrapper>
 			<UserList users={users} />
-			<TitleSuggest />
+			<RightSide>
+				<TitleSuggest />
+				<ChatBox />
+			</RightSide>
 		</Wrapper>
 	)
 }

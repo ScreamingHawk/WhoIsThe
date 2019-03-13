@@ -5,7 +5,6 @@ import User from './User'
 
 const UserListWrapper = styled.div`
 	display: flex;
-	width: 100%;
 	justify-content: space-around;
 `
 

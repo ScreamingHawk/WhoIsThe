@@ -10,6 +10,7 @@ const app = express()
 const server = http.createServer(app)
 const io = socketio(server)
 
+const configureChat = require('./routes/chat')
 const configureMyName = require('./routes/myname')
 const configureTitle = require('./routes/title')
 const configureUsers = require('./routes/users')
@@ -46,6 +47,7 @@ io.on('connection', socket => {
 		io.emit('users is', store.users)
 	})
 
+	configureChat(io, socket, store)
 	configureMyName(io, socket, store)
 	configureTitle(io, socket, store)
 	configureUsers(io, socket, store)
