@@ -12,13 +12,20 @@ const App = () => {
 	const [name, setName] = useState()
 
 	useEffect(() => {
-		// Set up socket management
+		// Listen for myname
 		socket.on('myname is', myName => {
 			console.log(`Setting name to ${myName}`)
 			setName(myName)
 		})
+		// Listen for user list
+		socket.on('users is', users => {
+			console.log(`Users are ${JSON.stringify(users)}`)
+		})
+
+		// Unsub
 		return () => {
 			socket.off('myname is')
+			socket.off('users is')
 		}
 	})
 
