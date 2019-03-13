@@ -11,6 +11,7 @@ const server = http.createServer(app)
 const io = socketio(server)
 
 const configureMyName = require('./routes/myname')
+const configureUsers = require('./routes/users')
 
 const clientFolder = path.join(__dirname, '..', 'client/build')
 
@@ -24,7 +25,7 @@ let connectedCount = 0
 
 const store = {
 	sockets: {},
-	users: {},
+	users: [],
 }
 
 io.on('connection', socket => {
@@ -40,13 +41,14 @@ io.on('connection', socket => {
 		const sock = store.sockets[socket]
 		if (sock.name){
 			// Deactivate user
-			store.users[sock.name].active = false
+			store.users.find(u => u.name == sock.name).active = false
 		}
 		delete store.sockets[socket]
 		io.emit('users is', store.users)
 	})
 
 	configureMyName(io, socket, store)
+	configureUsers(io, socket, store)
 })
 
 // Fail over

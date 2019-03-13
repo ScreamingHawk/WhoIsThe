@@ -3,11 +3,13 @@ import { ThemeProvider } from 'styled-components'
 
 import socket from './global/socket'
 import PageWho from './pages/PageWho'
+import PagePlay from './pages/PagePlay'
 
 const App = () => {
 	const [theme] = useState({
 		background: "#DCDCDC",
 		text: "#111111",
+		border: "#AAAAAA",
 	})
 	const [name, setName] = useState()
 
@@ -17,21 +19,18 @@ const App = () => {
 			console.log(`Setting name to ${myName}`)
 			setName(myName)
 		})
-		// Listen for user list
-		socket.on('users is', users => {
-			console.log(`Users are ${JSON.stringify(users)}`)
-		})
 
 		// Unsub
 		return () => {
 			socket.off('myname is')
-			socket.off('users is')
 		}
 	})
 
 	let page = null
 	if (!name){
 		page = <PageWho />
+	} else {
+		page = <PagePlay myName={name} />
 	}
 
 	return (
