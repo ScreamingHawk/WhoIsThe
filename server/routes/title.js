@@ -10,12 +10,16 @@ const setCurrentTitle = (io, store, common) => {
 	const title = store.titleSuggestions.shift()
 	store.currentTitle = title
 	store.currentVotes = []
-	log.debug(`Voting commencing on ${title}`)
 	common.systemMessage('Who is the', title)
 	io.emit('title set', title)
 }
 
 module.exports = (io, socket, store, common) => {
+	// Get current title
+	socket.on('title get', () => {
+		socket.emit('title set', store.currentTitle)
+	})
+
 	// Get title suggestion
 	socket.on('title suggest', title => {
 		log.info(`Title suggested: ${title}`)
@@ -50,12 +54,13 @@ module.exports = (io, socket, store, common) => {
 					votedFor: votedFor.id,
 				})
 			}
-			store.currentVotes[socket.id] = userId
 			common.systemMessage(votedBy.name, message)
 		}
 
 		// Test voting completed
-		if (store.currentVotes.length === store.users.length){
+		log.debug(JSON.stringify(store.currentVotes))
+		log.debug(`Checking ${store.currentVotes.length} === ${common.countActiveUsers()}`)
+		if (store.currentVotes.length === common.countActiveUsers()){
 			// Count the votes
 			const counts = {}
 			let largest = 1

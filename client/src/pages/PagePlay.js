@@ -30,11 +30,15 @@ const Side = styled.div`
 
 const PagePlay = () => {
 	const [users, setUsers] = useState([])
-	const [title, setTitle] = useState('')
+	const [title, setTitle] = useState(null)
 
 	useEffect(() => {
 		// Listen for new titles
 		socket.on('title set', setTitle)
+		// Request user list
+		if (title === null){
+			socket.emit('title get')
+		}
 
 		// Unsub
 		return () => {

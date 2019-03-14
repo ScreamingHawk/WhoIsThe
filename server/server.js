@@ -35,6 +35,14 @@ const store = {
 }
 const common = {
 	systemMessage: (item, message) => systemMessage(io, item, message),
+	countActiveUsers: () => {
+		if (store.users.length > 1){
+			return store.users.reduce((a, u) => a + (u.active ? 1 : 0), 0)
+		} else if (store.users.length == 1){
+			return store.users[0].active ? 1 : 0
+		}
+		return 0
+	}
 }
 
 io.on('connection', socket => {
