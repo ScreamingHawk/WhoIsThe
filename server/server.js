@@ -15,7 +15,10 @@ const {
 	systemMessage,
 } = require('./routes/chat')
 const configureTitle = require('./routes/title')
-const configureUsers = require('./routes/users')
+const {
+	configureUsers,
+	sendUsers,
+} = require('./routes/users')
 
 const clientFolder = path.join(__dirname, '..', 'client/build')
 
@@ -34,6 +37,7 @@ const store = {
 	currentVotes: [],
 }
 const common = {
+	sendUsers: () => sendUsers(io, store),
 	systemMessage: (item, message) => systemMessage(io, item, message),
 	countActiveUsers: () => {
 		if (store.users.length > 1){

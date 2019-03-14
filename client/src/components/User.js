@@ -17,10 +17,15 @@ const UserWrapper = styled.div`
 	text-align: center;
 `
 
+const TitleRow = styled.p`
+	margin: 0;
+`
+
 const User = (props) => {
 	const {
 		name,
 		id,
+		titles,
 		currentTitle,
 	} = props
 
@@ -40,6 +45,11 @@ const User = (props) => {
 					{name} is!!
 				</HighlightedButton>
 			)}
+			<p>
+				{ titles.map(t => (
+					<TitleRow>{t}</TitleRow>
+				))}
+			</p>
 		</UserWrapper>
 	)
 }

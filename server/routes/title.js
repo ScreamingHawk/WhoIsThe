@@ -92,6 +92,7 @@ module.exports = (io, socket, store, common) => {
 				) : winners[0].name
 			const isAre = winners.length > 1 ? 'are' : 'is'
 			common.systemMessage(winnerNames, `${isAre} the ${title}!`)
+			common.sendUsers()
 
 			// Next one
 			setCurrentTitle(io, store, common)
