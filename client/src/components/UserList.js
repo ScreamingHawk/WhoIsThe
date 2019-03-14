@@ -11,11 +11,16 @@ const UserListWrapper = styled.div`
 const UserList = (props) => {
 	const {
 		users,
+		currentTitle,
 	} = props
 	return (
 		<UserListWrapper>
 			{ users && users.map(u => (
-				<User key={u.name} {...u}></User>
+				<User
+					key={u.id}
+					currentTitle={currentTitle}
+					{...u}
+				/>
 			))}
 		</UserListWrapper>
 	)

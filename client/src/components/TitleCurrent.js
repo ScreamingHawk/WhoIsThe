@@ -22,18 +22,10 @@ const Wrapper = styled.div`
 	}
 `
 
-const TitleCurrent = () => {
-	const [title, setTitle] = useState('')
-
-	useEffect(() => {
-		// Listen for new titles
-		socket.on('title set', setTitle)
-
-		// Unsub
-		return () => {
-			socket.off('title set')
-		}
-	})
+const TitleCurrent = props => {
+	const {
+		title,
+	} = props
 
 	const content = title ? (
 		<h1>

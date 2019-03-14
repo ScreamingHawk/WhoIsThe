@@ -30,6 +30,17 @@ const Side = styled.div`
 
 const PagePlay = () => {
 	const [users, setUsers] = useState([])
+	const [title, setTitle] = useState('')
+
+	useEffect(() => {
+		// Listen for new titles
+		socket.on('title set', setTitle)
+
+		// Unsub
+		return () => {
+			socket.off('title set')
+		}
+	})
 
 	useEffect(() => {
 		// Listen for user list
@@ -50,8 +61,8 @@ const PagePlay = () => {
 	return (
 		<Wrapper>
 			<Side>
-				<TitleCurrent />
-				<UserList users={users} />
+				<TitleCurrent title={title} />
+				<UserList users={users} currentTitle={title} />
 			</Side>
 			<Side>
 				<TitleSuggest />

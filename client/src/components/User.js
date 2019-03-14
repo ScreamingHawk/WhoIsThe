@@ -21,6 +21,7 @@ const User = (props) => {
 	const {
 		name,
 		id,
+		currentTitle,
 	} = props
 
 	const sendVote = e => {
@@ -34,9 +35,11 @@ const User = (props) => {
 	return (
 		<UserWrapper>
 			<p>{name}</p>
-			<HighlightedButton onClick={sendVote}>
-				{name} is!!
-			</HighlightedButton>
+			{ currentTitle && (
+				<HighlightedButton onClick={sendVote}>
+					{name} is!!
+				</HighlightedButton>
+			)}
 		</UserWrapper>
 	)
 }
