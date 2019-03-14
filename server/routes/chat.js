@@ -15,6 +15,7 @@ module.exports = {
 		})
 	},
 	systemMessage: (io, item, message) => {
+		log.debug(`Sending system message ${item} ${message}`)
 		io.emit('chat system', {
 			system: true,
 			item: item,

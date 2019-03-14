@@ -31,6 +31,7 @@ const store = {
 	users: [],
 	titleSuggestions: [],
 	currentTitle: '',
+	currentVotes: [],
 }
 const common = {
 	systemMessage: (item, message) => systemMessage(io, item, message),
