@@ -44,7 +44,7 @@ const User = (props) => {
 
 	return (
 		<UserWrapper active={active}>
-			<p>{name}</p>
+			<h3>{name}</h3>
 			{ active && currentTitle && (
 				<HighlightedButton onClick={sendVote}>
 					{name} is!!
