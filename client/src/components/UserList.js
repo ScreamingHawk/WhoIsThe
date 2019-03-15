@@ -13,9 +13,10 @@ const UserList = (props) => {
 		users,
 		currentTitle,
 	} = props
+	const currentUsers = users.filter(u => u.active)
 	return (
 		<UserListWrapper>
-			{ users && users.map(u => (
+			{ currentUsers && currentUsers.map(u => (
 				<User
 					key={u.id}
 					currentTitle={currentTitle}
