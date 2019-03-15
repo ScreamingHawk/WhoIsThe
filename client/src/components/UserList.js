@@ -5,7 +5,10 @@ import User from './User'
 
 const UserListWrapper = styled.div`
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: space-around;
+
+	word-wrap: break-word;
 `
 
 const UserList = (props) => {
