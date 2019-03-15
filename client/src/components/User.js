@@ -50,13 +50,12 @@ const User = (props) => {
 					{name} is!!
 				</HighlightedButton>
 			)}
-			<p>
-				{ titles.length > 0 ? titles.map(t => (
-					<TitleRow>{t}</TitleRow>
-				)) : (
-					<i>No titles</i>
-				)}
-			</p>
+			<span role="img" aria-label="crown">👑</span>
+			{ titles.length > 0 ? titles.map(t => (
+				<TitleRow>{t}</TitleRow>
+			)) : (
+				<TitleRow><i>No titles</i></TitleRow>
+			)}
 		</UserWrapper>
 	)
 }
