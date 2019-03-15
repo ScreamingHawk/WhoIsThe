@@ -62,6 +62,8 @@ const PagePlay = () => {
 		}
 	})
 
+	document.title = `Who is the ${title ? title+'?' : '...'}`
+
 	return (
 		<Wrapper>
 			<Side>
