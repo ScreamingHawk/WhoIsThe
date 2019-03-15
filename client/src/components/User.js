@@ -51,9 +51,11 @@ const User = (props) => {
 				</HighlightedButton>
 			)}
 			<p>
-				{ titles.map(t => (
+				{ titles.length > 0 ? titles.map(t => (
 					<TitleRow>{t}</TitleRow>
-				))}
+				)) : (
+					<i>No titles</i>
+				)}
 			</p>
 		</UserWrapper>
 	)
