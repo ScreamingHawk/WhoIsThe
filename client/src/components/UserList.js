@@ -13,7 +13,7 @@ const UserList = (props) => {
 		users,
 		currentTitle,
 	} = props
-	const currentUsers = users.filter(u => u.active)
+	const currentUsers = users.sort((a, b) => a.active ? -1 : b.active ? 1 : 0)
 	return (
 		<UserListWrapper>
 			{ currentUsers && currentUsers.map(u => (

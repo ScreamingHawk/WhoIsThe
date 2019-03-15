@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import HighlightedButton from './base/HighlightedButton'
 
@@ -15,6 +15,10 @@ const UserWrapper = styled.div`
 	justify-content: center;
 	align-items: middle;
 	text-align: center;
+
+	${props => !props.active && css`
+		background-color: ${({ theme }) => theme.border};
+	`}
 `
 
 const TitleRow = styled.p`
@@ -26,6 +30,7 @@ const User = (props) => {
 		name,
 		id,
 		titles,
+		active,
 		currentTitle,
 	} = props
 
@@ -38,9 +43,9 @@ const User = (props) => {
 	}
 
 	return (
-		<UserWrapper>
+		<UserWrapper active={active}>
 			<p>{name}</p>
-			{ currentTitle && (
+			{ active && currentTitle && (
 				<HighlightedButton onClick={sendVote}>
 					{name} is!!
 				</HighlightedButton>
