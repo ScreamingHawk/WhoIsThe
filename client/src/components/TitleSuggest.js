@@ -17,10 +17,16 @@ const Wrapper = styled.form`
 `
 
 const placeholders = [
-	'coolest guy',
-	'biggest weeb',
-	'person you would date',
-	'rudest dude',
+	'Coolest Guy',
+	'Biggest Weeb',
+	'Person You Would Date',
+	'Rudest Dude',
+	'Boss Of This Gym',
+	'Very Powerful Mod',
+	'Best Boi',
+	'Music Spamlord',
+	'Fascist',
+	'ISTJ',
 ]
 
 const TitleSuggest = () => {
