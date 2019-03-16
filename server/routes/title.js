@@ -58,8 +58,6 @@ module.exports = (io, socket, store, common) => {
 		}
 
 		// Test voting completed
-		log.debug(JSON.stringify(store.currentVotes))
-		log.debug(`Checking ${store.currentVotes.length} === ${common.countActiveUsers()}`)
 		if (store.currentVotes.length === common.countActiveUsers()){
 			// Count the votes
 			const counts = {}
