@@ -1,4 +1,5 @@
 const log = require('../util/logger')
+const { toTitleCase } = require('../util/textHelper')
 
 const setCurrentTitle = (io, store, common) => {
 	if (store.titleSuggestions.length == 0){
@@ -22,6 +23,7 @@ module.exports = (io, socket, store, common) => {
 
 	// Get title suggestion
 	socket.on('title suggest', title => {
+		title = toTitleCase(title)
 		log.info(`Title suggested: ${title}`)
 		store.titleSuggestions.push(title)
 		common.systemMessage(title, 'was suggested')

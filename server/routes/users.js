@@ -1,4 +1,5 @@
 const log = require('../util/logger')
+const { toTitleCase } = require('../util/textHelper')
 
 const sendUsers = (io, store) => {
 	io.emit('users is', store.users)
@@ -13,6 +14,7 @@ module.exports = {
 
 		// Handle user setting their name
 		socket.on('myname set', name => {
+			name = toTitleCase(name)
 			log.debug(`User set name to ${name}`)
 			const user = store.users.find(u => u.id === socket.id)
 			if (user){
