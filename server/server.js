@@ -4,7 +4,7 @@ const path = require('path')
 const http = require('http')
 const socketio = require('socket.io')
 
-const log = require('./logger')
+const log = require('./util/logger')
 
 const app = express()
 const server = http.createServer(app)

@@ -1,4 +1,4 @@
-const log = require('../logger')
+const log = require('../util/logger')
 
 module.exports = {
 	configureChat: (io, socket, store) => {

@@ -1,4 +1,4 @@
-const log = require('../logger')
+const log = require('../util/logger')
 
 const setCurrentTitle = (io, store, common) => {
 	if (store.titleSuggestions.length == 0){

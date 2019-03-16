@@ -1,4 +1,4 @@
-const log = require('../logger')
+const log = require('../util/logger')
 
 const sendUsers = (io, store) => {
 	io.emit('users is', store.users)
