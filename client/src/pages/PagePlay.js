@@ -27,7 +27,7 @@ const Wrapper = styled.div`
 const Side = styled.div`
 	> * {
 		margin-bottom: 10px;
-		input {
+		> input {
 			width: 100%;
 		}
 	}
