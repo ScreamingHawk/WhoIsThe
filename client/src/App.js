@@ -11,6 +11,7 @@ const App = () => {
 		text: "#111111",
 		border: "#AAAAAA",
 		highlight: "#e8a90e",
+		breakPoint: "768px",
 	})
 	const [name, setName] = useState()
 

@@ -6,6 +6,7 @@ import socket from '../global/socket'
 
 const Wrapper = styled.form`
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: middle;
 	background-color: ${({ theme }) => theme.background};

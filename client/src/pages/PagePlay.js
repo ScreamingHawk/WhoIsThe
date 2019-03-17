@@ -11,8 +11,13 @@ const Wrapper = styled.div`
 	width: 100vw;
 	height: 100vh;
 	display: flex;
+	@media (max-width: ${({ theme }) => theme.breakPoint}) {
+		flex-wrap: wrap;
+	}
 	> * {
-		width: 50%;
+		@media (min-width: ${({ theme }) => theme.breakPoint}) {
+			width: 50%;
+		}
 		padding: 8px;
 	}
 	justify-content: space-around;
