@@ -32,6 +32,7 @@ Set up heroku
 
 ```sh
 heroku login
+heroku create
 ```
 
 Do the deployment
