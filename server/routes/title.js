@@ -1,7 +1,11 @@
 const log = require('../util/logger')
 const { toTitleCase } = require('../util/textHelper')
 
-const setCurrentTitle = (io, store, common) => {
+let io = null
+let store = null
+let common = null
+
+const setCurrentTitle = () => {
 	if (store.titleSuggestions.length == 0){
 		log.warn('Attempted to set currentTitle with empty suggestions list')
 		store.currentTitle = ''
@@ -15,7 +19,70 @@ const setCurrentTitle = (io, store, common) => {
 	io.emit('title set', title)
 }
 
-module.exports = (io, socket, store, common) => {
+const doWinTitle = () => {
+	clearDoWinTimer()
+	// Count the votes
+	const counts = {}
+	let largest = 1
+	for (let i = 0; i < store.currentVotes.length; i++){
+		const v = store.currentVotes[i]
+		if (counts[v.votedFor]){
+			counts[v.votedFor]++
+			if (counts[v.votedFor] > largest){
+				largest = counts[v.votedFor]
+			}
+		} else {
+			counts[v.votedFor] = 1
+		}
+	}
+	// Find winners
+	const winners = []
+	for (let [votedForId, count] of Object.entries(counts)){
+		if (count == largest){
+			winners.push(store.users.find(u => u.id === votedForId))
+		}
+	}
+	// Add titles
+	const title = store.currentTitle
+	winners.forEach(w => {
+		w.titles.push(title)
+		io.emit('title add', w, title)
+	})
+	// Send result
+	const winnerNames = winners.length > 1 ?
+		winners.reduce((a, val, i, arr) =>
+			a + (i < arr.length -1 ? ', ' : ' and ') + val.name
+		) : winners[0].name
+	const isAre = winners.length > 1 ? 'are' : 'is'
+	common.systemMessage(winnerNames, `${isAre} the ${title}!`)
+	common.sendUsers()
+
+	// Next one
+	setCurrentTitle()
+}
+
+// Time out the question
+let doWinTimer = null
+const clearDoWinTimer = () => {
+	if (doWinTimer){
+		clearTimeout(doWinTimer)
+	}
+}
+const startDoWinTimer = () => {
+	clearDoWinTimer()
+	doWinTimer = setTimeout(() => {
+		doWinTitle()
+	}, 10000)
+}
+
+module.exports = (ioIn, socket, storeIn, commonIn) => {
+	io = ioIn
+	store = storeIn
+	common = commonIn
+	init(socket)
+}
+
+const init = socket => {
 	// Get current title
 	socket.on('title get', () => {
 		socket.emit('title set', store.currentTitle)
@@ -57,45 +124,12 @@ module.exports = (io, socket, store, common) => {
 				})
 			}
 			common.systemMessage(votedBy.name, message)
+			startDoWinTimer()
 		}
 
 		// Test voting completed
 		if (store.currentVotes.length === common.countActiveUsers()){
-			// Count the votes
-			const counts = {}
-			let largest = 1
-			for (let i = 0; i < store.currentVotes.length; i++){
-				const v = store.currentVotes[i]
-				if (counts[v.votedFor]){
-					counts[v.votedFor]++
-					if (counts[v.votedFor] > largest){
-						largest = counts[v.votedFor]
-					}
-				} else {
-					counts[v.votedFor] = 1
-				}
-			}
-			const winners = []
-			for (let [votedForId, count] of Object.entries(counts)){
-				if (count == largest){
-					winners.push(store.users.find(u => u.id === votedForId))
-				}
-			}
-			const title = store.currentTitle
-			winners.forEach(w => {
-				w.titles.push(title)
-				io.emit('title add', w, title)
-			})
-			const winnerNames = winners.length > 1 ?
-				winners.reduce((a, val, i, arr) =>
-					a + (i < arr.length -1 ? ', ' : ' and ') + val.name
-				) : winners[0].name
-			const isAre = winners.length > 1 ? 'are' : 'is'
-			common.systemMessage(winnerNames, `${isAre} the ${title}!`)
-			common.sendUsers()
-
-			// Next one
-			setCurrentTitle(io, store, common)
+			doWinTitle(io, store, common)
 		}
 	})
 }
