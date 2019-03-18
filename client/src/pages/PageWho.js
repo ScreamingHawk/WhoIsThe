@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import Input from '../components/base/Input'
+import SendableInput from '../components/base/SendableInput'
 import socket from '../global/socket'
 
 const Wrapper = styled.form`
@@ -11,7 +11,8 @@ const Wrapper = styled.form`
 	justify-content: center;
 	align-items: middle;
 
-	input {
+	div {
+		margin: auto;
 		text-align: center;
 	}
 `
@@ -31,7 +32,7 @@ const PageWho = () => {
 
 	return (
 		<Wrapper onSubmit={handleSubmit}>
-			<Input
+			<SendableInput
 				value={name}
 				placeholder="Who are you ...?"
 				onChange={e => setName(e.target.value)} />

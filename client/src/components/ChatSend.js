@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import Input from './base/Input'
+import SendableInput from './base/SendableInput'
 import socket from '../global/socket'
 
 const Wrapper = styled.form`
@@ -10,7 +10,7 @@ const Wrapper = styled.form`
 	align-items: middle;
 	background-color: ${({ theme }) => theme.background};
 
-	input {
+	div {
 		flex-grow: 1;
 	}
 `
@@ -31,7 +31,7 @@ const ChatSend = () => {
 
 	return (
 		<Wrapper onSubmit={handleSubmit}>
-			<Input
+			<SendableInput
 				value={message}
 				placeholder="Chat..."
 				onChange={e => setMessage(e.target.value)} />

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-import Input from './base/Input'
+import SendableInput from './base/SendableInput'
 import socket from '../global/socket'
 
 const Wrapper = styled.form`
@@ -15,7 +15,7 @@ const Wrapper = styled.form`
 		white-space: nowrap;
 		margin: 0;
 	}
-	input {
+	div {
 		flex-grow: 1;
 	}
 `
@@ -52,7 +52,7 @@ const TitleSuggest = () => {
 	return (
 		<Wrapper onSubmit={handleSubmit}>
 			<h1>Who is the ...&nbsp;</h1>
-			<Input
+			<SendableInput
 				value={title}
 				placeholder={placeholder}
 				onChange={e => setTitle(e.target.value)} />
