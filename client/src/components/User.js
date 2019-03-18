@@ -15,6 +15,7 @@ const UserWrapper = styled.div`
 	justify-content: center;
 	align-items: middle;
 	text-align: center;
+	margin: 4px;
 
 	${props => !props.active && css`
 		background-color: ${({ theme }) => theme.border};
