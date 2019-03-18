@@ -9,6 +9,10 @@ const Wrapper = styled.form`
 	justify-content: center;
 	align-items: middle;
 	background-color: ${({ theme }) => theme.background};
+
+	input {
+		flex-grow: 1;
+	}
 `
 
 const ChatSend = () => {

@@ -15,6 +15,9 @@ const Wrapper = styled.form`
 		white-space: nowrap;
 		margin: 0;
 	}
+	input {
+		flex-grow: 1;
+	}
 `
 
 const placeholders = [
