@@ -5,6 +5,8 @@ const HighlightedButton = styled.button`
 	background: transparent;
 	border: 2px solid ${({ theme }) => theme.highlight};
 	border-radius: 8px;
+	padding: 8px;
+	font-size: 1.0em;
 
 	:hover {
 		font-weight: bold;
