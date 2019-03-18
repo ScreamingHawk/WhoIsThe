@@ -33,6 +33,7 @@ let connectedCount = 0
 const store = {
 	users: [],
 	titleSuggestions: [],
+	allSuggestions: [],
 	currentTitle: '',
 	currentVotes: [],
 }

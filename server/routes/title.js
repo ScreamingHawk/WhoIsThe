@@ -96,12 +96,17 @@ const init = socket => {
 	socket.on('title suggest', title => {
 		title = toTitleCase(title)
 		log.info(`Title suggested: ${title}`)
-		store.titleSuggestions.push(title)
-		common.systemMessage(title, 'was suggested')
+		if (!store.allSuggestions.find(t => t == title)){
+			store.allSuggestions.push(title)
+			store.titleSuggestions.push(title)
+			common.systemMessage(title, 'was suggested')
 
-		if (store.currentTitle === ''){
-			// If there is no current title, use this one
-			setCurrentTitle(io, store, common)
+			if (store.currentTitle === ''){
+				// If there is no current title, use this one
+				setCurrentTitle(io, store, common)
+			}
+		} else {
+			log.warn('Attempt to suggest duplicate title')
 		}
 	})
 
