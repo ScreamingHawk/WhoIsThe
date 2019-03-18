@@ -11,6 +11,10 @@ const Wrapper = styled.form`
 	justify-content: center;
 	align-items: middle;
 	background-color: ${({ theme }) => theme.background};
+
+	input {
+		text-align: center;
+	}
 `
 
 const PageWho = () => {
