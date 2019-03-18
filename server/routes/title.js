@@ -50,9 +50,13 @@ const doWinTitle = () => {
 	})
 	// Send result
 	const winnerNames = winners.length > 1 ?
-		winners.reduce((a, val, i, arr) =>
-			a + (i < arr.length -1 ? ', ' : ' and ') + val.name
-		) : winners[0].name
+		winners.reduce((a, val, i, arr) => {
+				if (i == 0){
+					return val.name
+				}
+				return a + (i < arr.length -1 ? ', ' : ' and ') + val.name
+			}
+		, '') : winners[0].name
 	const isAre = winners.length > 1 ? 'are' : 'is'
 	common.systemMessage(winnerNames, `${isAre} the ${title}!`)
 	common.sendUsers()
