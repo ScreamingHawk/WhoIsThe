@@ -10,7 +10,6 @@ const Wrapper = styled.form`
 	display: flex;
 	justify-content: center;
 	align-items: middle;
-	background-color: ${({ theme }) => theme.background};
 
 	input {
 		text-align: center;

@@ -21,7 +21,6 @@ const Wrapper = styled.div`
 		padding: 8px;
 	}
 	justify-content: space-around;
-	background-color: ${({ theme }) => theme.background};
 `
 
 const Side = styled.div`

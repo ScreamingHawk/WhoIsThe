@@ -15,6 +15,8 @@ const App = () => {
 	})
 	const [name, setName] = useState()
 
+	document.body.style.background = theme.background
+
 	useEffect(() => {
 		// Listen for myname
 		socket.on('myname is', myName => {
