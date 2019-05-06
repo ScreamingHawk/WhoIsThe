@@ -26,7 +26,7 @@ const TitleRow = styled.p`
 	margin: 0;
 `
 
-const User = (props) => {
+const User = props => {
 	const {
 		name,
 		id,

@@ -17,6 +17,11 @@ const HighlightedButton = styled.button`
 		color: ${({ theme }) => theme.text};
 		border: 2px solid ${({ theme }) => theme.text};
 	}
+
+	&.clicked {
+		color: ${({ theme }) => theme.text};
+		background: ${({ theme }) => theme.highlight}
+	}
 `
 
 export default HighlightedButton
